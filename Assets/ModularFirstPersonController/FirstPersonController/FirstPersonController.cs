@@ -20,6 +20,7 @@ public class FirstPersonController : MonoBehaviour
 
     #region Camera Movement Variables
 
+    public Animator playerAnimation;
     public Camera playerCamera;
 
     public float fov = 60f;
@@ -151,6 +152,7 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
+        playerAnimation = GameObject.Find("PlayerPlane").GetComponent<Animator>();
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -375,6 +377,34 @@ public class FirstPersonController : MonoBehaviour
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
+            if (targetVelocity.x > 0)
+            {
+                playerAnimation.SetBool("isD", true);
+            }
+            if (targetVelocity.x == 0)
+            {
+                playerAnimation.SetBool("isD", false);
+                playerAnimation.SetBool("isA", false);
+            }
+            if (targetVelocity.x < 0)
+            {
+                playerAnimation.SetBool("isA", true);
+            }
+
+            if (targetVelocity.z > 0 || (playerAnimation.GetBool("isD") && targetVelocity.z > 0) || (playerAnimation.GetBool("isA") && targetVelocity.z > 0))
+            {
+                playerAnimation.SetBool("isW", true);
+            }
+            if (targetVelocity.z == 0)
+            {
+                playerAnimation.SetBool("isW", false);
+                playerAnimation.SetBool("isS", false);
+            }
+            if (targetVelocity.z < 0 || (playerAnimation.GetBool("isD") && targetVelocity.z < 0) || (playerAnimation.GetBool("isA") && targetVelocity.z < 0))
+            {
+                playerAnimation.SetBool("isS", true);
+            }
+
             if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
             {
                 isWalking = true;
