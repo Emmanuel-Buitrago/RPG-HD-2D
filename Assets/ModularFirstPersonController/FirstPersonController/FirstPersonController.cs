@@ -391,7 +391,7 @@ public class FirstPersonController : MonoBehaviour
                 playerAnimation.SetBool("isA", true);
             }
 
-            if (targetVelocity.z > 0 || (playerAnimation.GetBool("isD") && targetVelocity.z > 0) || (playerAnimation.GetBool("isA") && targetVelocity.z > 0))
+            if (targetVelocity.z > 0 )
             {
                 playerAnimation.SetBool("isW", true);
             }
@@ -400,7 +400,7 @@ public class FirstPersonController : MonoBehaviour
                 playerAnimation.SetBool("isW", false);
                 playerAnimation.SetBool("isS", false);
             }
-            if (targetVelocity.z < 0 || (playerAnimation.GetBool("isD") && targetVelocity.z < 0) || (playerAnimation.GetBool("isA") && targetVelocity.z < 0))
+            if (targetVelocity.z < 0 )
             {
                 playerAnimation.SetBool("isS", true);
             }
